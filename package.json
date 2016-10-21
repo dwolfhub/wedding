@@ -1,0 +1,27 @@
+{
+  "name": "wedding",
+  "version": "0.0.1",
+  "description": "wedding website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dwolfhub/wedding.git"
+  },
+  "author": "Daniel Wolf <danielrwolf5@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dwolfhub/wedding/issues"
+  },
+  "homepage": "https://github.com/dwolfhub/wedding#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-minify": "0.0.14",
+    "gulp-rev": "^7.1.2",
+    "gulp-sass": "^2.3.2",
+    "through2": "^2.0.1"
+  }
+}
