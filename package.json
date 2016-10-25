@@ -23,6 +23,7 @@
     "gulp-minify": "0.0.14",
     "gulp-rev": "^7.1.2",
     "gulp-sass": "^2.3.2",
+    "normalize-scss": "^5.0.4",
     "through2": "^2.0.1"
   }
 }

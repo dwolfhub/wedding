@@ -1,3 +1,67 @@
-body {
+@import "../../node_modules/normalize-scss/sass/normalize";
+@include normalize();
+
+$cream: rgb(255,251,222);
+
+html, body {
     height: 100%;
+    font-family: "Dancing Script", serif;
+    color: $cream;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+.left, .right {
+    height: 100%;
+    position: fixed;
+    width: 50%;
+}
+
+.right {
+    background: url('wood-bg.jpg');
+    background-size: cover;
+    right: 0;
+}
+
+.container {
+    padding: 25px 45px;
+}
+
+header {
+    $big-link-height: 48px;
+    $small-link-height: 24px;
+    $small-link-padding: $big-link-height - $small-link-height - 5px;
+
+    a, a:visited, a:active {
+        color: $cream;
+        text-decoration: none;
+        font-size: 48px;
+        line-height: 1;
+    }
+    a:hover {
+        opacity: 0.7;
+    }
+
+    .home {
+        float: left;
+    }
+
+    .menu {
+        padding-top: $small-link-padding;
+        margin: 0;
+        float: right;
+        list-style: none;
+
+
+        li {
+            float: left;
+            margin-left: 25px;
+            a {
+                font-size: $small-link-height;
+            }
+
+        }
+    }
 }
