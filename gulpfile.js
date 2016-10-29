@@ -19,8 +19,8 @@ let replaceInFile = function (fileName, revvedFiles) {
             return;
         }
 
-        for (let j in revvedFiles) {
-            data = data.replace(j, revvedFiles[j]);
+        for (let j in revvedFiles) {    
+            data = data.replace(new RegExp(j, 'g'), revvedFiles[j]);
         }
 
         fs.writeFile(fileName, data, 'utf8');
@@ -56,9 +56,12 @@ gulp.task('default', ['html', 'img', 'js', 'scss'], function () {
                 this.push(file);
 
                 let revvedFiles = JSON.parse(file._contents.toString()),
-                    fileName = 'public_html/index.html';
+                    fileNames = ['public_html/index.html', 'public_html/hotels.html', 'public_html/venue.html', 'public_html/wedding-day-info.html'],
+                    i;
 
-                fs.readFile(fileName, 'utf8', replaceInFile(fileName, revvedFiles));
+                for (i = 0; i < fileNames.length; i++) {
+                    fs.readFile(fileNames[i], 'utf8', replaceInFile(fileNames[i], revvedFiles));
+                }
 
                 fs.readdir(distDir + '/', function (err, files) {
                     let filesLength = files.length,
@@ -84,7 +87,7 @@ gulp.task('default', ['html', 'img', 'js', 'scss'], function () {
 /* Compile and Move Tasks */
 
 gulp.task('html', ['clean-html'], function () {
-    return gulp.src('assets/html/index.html')
+    return gulp.src('assets/html/*.html')
         .pipe(gulp.dest(distDir + '/../'));
 });
 

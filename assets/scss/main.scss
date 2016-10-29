@@ -2,26 +2,71 @@
 @include normalize();
 
 $cream: rgb(255,251,222);
+$white: #FEFCF1;
+$white: #FCF9EA;
+//$white: rgb(248, 199, 176);
+
+$ff-primary: "Dancing Script", serif;
+$ff-secondary: "Lato", serif;
+
+$small: 480px;
+$medium: 720px;
+$large: 1024px;
+
+
+@mixin responsive($size) {
+    @if $size == xs {
+        @media all and (max-width: $small) {
+            @content;
+        }
+    } @else if $size == s {
+        @media all and (max-width: $medium) {
+            @content;
+        }
+    } @else if $size == m {
+        @media all and (min-width: $medium) {
+            @content;
+        }
+    } @else if $size == l {
+        @media all and (min-width: $large) {
+            @content;
+        }
+    }
+}
 
 html, body {
     height: 100%;
-    color: $cream;
-    font-family: "Bree Serif", serif;
+    color: $white;
+    font-family: $ff-secondary;
+    font-weight: 300;
     font-size: 18px;
+    position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Dancing Script", serif;
+    font-family: $ff-primary;
 }
 
 h1 {
+    color: $cream;
     text-align: center;
-    margin: 0 0 25px;
-    font-size: 48px;
+    margin: 0 0 15px;
+    font-size: 64px;
+
+    @include responsive(xs) {
+        font-size: 28px;
+        margin-bottom: 0;
+    }
 }
 
 h2 {
+    color: $cream;
     font-size: 48px;
+    margin: 40px 0 15px;
+
+    @include responsive(xs) {
+        margin-top: 0;
+    }
 }
 
 .clearfix {
@@ -35,25 +80,75 @@ h2 {
 }
 
 .left, .right {
-    height: 100%;
-    position: fixed;
-    width: 50%;
+    @include responsive(m) {
+        height: 100%;
+        position: fixed;
+        width: 50%;
+    }
+}
+
+.save-the-date .left {
+    background-image: url('photo-1.jpg');
+}
+.wedding-day-info .left {
+    background-image: url('photo-2.jpg');
+}
+.hotels .left {
+    background-image: url('photo-3.jpg');
+}
+.venue .left {
+    background-image: url('photo-5.jpg');
 }
 
 .left {
-    background: url('photo-1.jpg') center center;
+    background: url('photo-1.jpg') top center;
     background-size: cover;
+
+    @include responsive(xs) {
+        background-position: top center;
+    }
+
+    @include responsive(s) {
+        background: url(antique-frame.png) center center no-repeat, url(photo-1.jpg) center center no-repeat;
+        height: 0;
+        position: absolute;
+        top: 160px;
+        width: 77.22%;
+        padding-top: 64.35%;
+        background-size: cover, 65% auto;
+        left: 11.44%;
+    }
+
+    @include responsive(xs) {
+        top: 150px;
+    }
+}
+
+.left-space {
+    display: none;
+
+    @include responsive(s) {
+        display: block;
+        padding-top: calc(64.35% + 90px);
+        width: 100%;
+    }
 }
 
 .right {
-    background: url('wood-bg.jpg');
-    background-size: cover;
+    min-height: calc(100vh);
+    background-position: top left;
     right: 0;
     overflow-y: auto;
 }
 
 .container {
+    background: url('wood-bg.jpg');
+    min-height: calc(100% - 50px);
     padding: 25px 45px;
+
+    @include responsive(xs) {
+        padding: 25px 20px;
+    }
 }
 
 a, a:visited, a:active {
@@ -62,25 +157,41 @@ a, a:visited, a:active {
 
 
 header {
+    @mixin active-style {
+        border-bottom: 2px solid $white;
+    }
     a:hover {
-        opacity: 0.7;
+        @include active-style;
     }
 
     .menu {
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
         list-style: none;
 
+        $li-margin: 20px;
+        width: 124.48px + 156.06px + 59.59px + 54.23px + ($li-margin * 2 * 4);
+
         li {
-            float: left;
-            width: 25%;
+            display: inline;
             text-align: center;
+            margin: 0 $li-margin;
+
+            @include responsive(xs) {
+                width: 50%;
+                padding: 4px 0;
+            }
 
             a {
+                font-weight: 700;
+                color: $white;
                 font-size: 19px;
                 text-decoration: none;
+                @include responsive(xs) {
+                    font-size: 16px;
+                }
                 &.active {
-                    text-decoration: underline;
+                    @include active-style;
                 }
             }
         }
@@ -92,5 +203,24 @@ section {
 
     &.active {
         display: block;
+    }
+}
+
+.save-the-date {
+    h2 {
+        font-size: 118px;
+        text-align: center;
+        margin: 75px 0 0;
+    }
+
+    h3, h4 {
+        font-family: $ff-secondary;
+        font-size: 57px;
+        text-align: center;
+        margin: 0;
+    }
+    
+    h4 {
+        font-size: 36px;
     }
 }
