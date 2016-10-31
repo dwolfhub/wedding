@@ -2,9 +2,7 @@
 @include normalize();
 
 $cream: rgb(255,251,222);
-$white: #FEFCF1;
 $white: #FCF9EA;
-//$white: rgb(248, 199, 176);
 
 $ff-primary: "Dancing Script", serif;
 $ff-secondary: "Lato", serif;
@@ -178,7 +176,7 @@ h2 {
 
 .container {
     background: url('wood-bg.jpg');
-    min-height: calc(100% - 50px);
+    min-height: calc(100vh - 50px);
     padding: 25px 45px;
 
     @include responsive-max(xs) {
@@ -273,6 +271,11 @@ section {
         @media all and (max-width: 1233px) {
             font-size: 52px;
         }
+        
+        @include responsive-max(xs) {
+            margin-top: 10px;
+        }
+
     }
 
     h3, h4 {
