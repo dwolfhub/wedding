@@ -10,11 +10,37 @@ $ff-primary: "Dancing Script", serif;
 $ff-secondary: "Lato", serif;
 
 $small: 480px;
-$medium: 720px;
+$medium: 768px;
 $large: 1024px;
+$xlarge: 1320px;
 
 
-@mixin responsive($size) {
+@mixin responsive-min($size) {
+    @if $size == xs {
+        @media all and (min-width: $small) {
+            @content;
+        }
+    } @else if $size == s {
+        @media all and (min-width: $medium) {
+            @content;
+        }
+    } @else if $size == m {
+        @media all and (min-width: $medium) {
+            @content;
+        }
+    } @else if $size == l {
+        @media all and (min-width: $large) {
+            @content;
+        }
+    } @else if $size == xl {
+        @media all and (min-width: $xlarge) {
+            @content;
+        }
+        
+    }
+}
+
+@mixin responsive-max($size) {
     @if $size == xs {
         @media all and (max-width: $small) {
             @content;
@@ -24,11 +50,11 @@ $large: 1024px;
             @content;
         }
     } @else if $size == m {
-        @media all and (min-width: $medium) {
+        @media all and (max-width: $medium) {
             @content;
         }
     } @else if $size == l {
-        @media all and (min-width: $large) {
+        @media all and (max-width: $large) {
             @content;
         }
     }
@@ -53,10 +79,15 @@ h1 {
     margin: 0 0 15px;
     font-size: 64px;
 
-    @include responsive(xs) {
-        font-size: 28px;
+    @media all and (max-width: 1014px) {
+        font-size: 40px;
+    }
+    
+    @include responsive-max(xs) {
+        font-size: 42px;
         margin-bottom: 0;
     }
+
 }
 
 h2 {
@@ -64,7 +95,7 @@ h2 {
     font-size: 48px;
     margin: 40px 0 15px;
 
-    @include responsive(xs) {
+    @include responsive-max(xs) {
         margin-top: 0;
     }
 }
@@ -80,10 +111,13 @@ h2 {
 }
 
 .left, .right {
-    @include responsive(m) {
-        height: 100%;
-        position: fixed;
-        width: 50%;
+    height: 100%;
+    position: fixed;
+    width: 50%;
+    @include responsive-max(m) {
+        height: auto;
+        position: static;
+        width: 100%;
     }
 }
 
@@ -104,12 +138,13 @@ h2 {
     background: url('photo-1.jpg') top center;
     background-size: cover;
 
-    @include responsive(xs) {
+    @include responsive-max(xs) {
         background-position: top center;
     }
 
-    @include responsive(s) {
-        background: url(antique-frame.png) center center no-repeat, url(photo-1.jpg) center center no-repeat;
+    @include responsive-max(s) {
+        background: url(photo-1.jpg) center center no-repeat;
+        box-shadow: 0 0 25px 0 white;
         height: 0;
         position: absolute;
         top: 160px;
@@ -119,15 +154,15 @@ h2 {
         left: 11.44%;
     }
 
-    @include responsive(xs) {
-        top: 150px;
+    @include responsive-max(xs) {
+        top: 167px;
     }
 }
 
 .left-space {
     display: none;
 
-    @include responsive(s) {
+    @include responsive-max(s) {
         display: block;
         padding-top: calc(64.35% + 90px);
         width: 100%;
@@ -146,7 +181,7 @@ h2 {
     min-height: calc(100% - 50px);
     padding: 25px 45px;
 
-    @include responsive(xs) {
+    @include responsive-max(xs) {
         padding: 25px 20px;
     }
 }
@@ -160,6 +195,7 @@ header {
     @mixin active-style {
         border-bottom: 2px solid $white;
     }
+
     a:hover {
         @include active-style;
     }
@@ -169,30 +205,49 @@ header {
         padding: 0;
         list-style: none;
 
-        $li-margin: 20px;
-        width: 124.48px + 156.06px + 59.59px + 54.23px + ($li-margin * 2 * 4);
+        $li-margin: 8px;
+        $menu-width: 111.75px + 140px + 53.67px + 48.52px + ($li-margin * 2 * 4);
+
+        width: $menu-width;
+        max-width: 100%;
 
         li {
             display: inline;
             text-align: center;
-            margin: 0 $li-margin;
-
-            @include responsive(xs) {
-                width: 50%;
-                padding: 4px 0;
+            width: 50%;
+            float: left;
+            margin: 5px 0;
+            
+            @include responsive-min(l) {
+                width: auto;
+                float: none;
+                margin: 0 $li-margin;
             }
 
             a {
                 font-weight: 700;
                 color: $white;
-                font-size: 19px;
+                font-size: 17px;
                 text-decoration: none;
-                @include responsive(xs) {
+
+                @include responsive-max(s) {
                     font-size: 16px;
                 }
+
                 &.active {
                     @include active-style;
                 }
+            }
+        }
+        
+        @include responsive-min(xl) {
+            $li-margin: 18px;
+            $menu-width: 111.75px + 140px + 53.67px + 48.52px + ($li-margin * 2 * 4);
+
+            width: $menu-width;
+
+            li {
+                margin: 0 $li-margin;
             }
         }
     }
@@ -211,6 +266,13 @@ section {
         font-size: 118px;
         text-align: center;
         margin: 75px 0 0;
+
+        @media all and (max-width: 1398px) {
+            font-size: 102px;
+        }
+        @media all and (max-width: 1233px) {
+            font-size: 52px;
+        }
     }
 
     h3, h4 {
