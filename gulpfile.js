@@ -31,7 +31,7 @@ gulp.task('watch', function () {
     gulp.watch('assets/**/*', ['default']);
 });
 
-gulp.task('default', ['html', 'img', 'js', 'scss'], function () {
+gulp.task('default', ['html', 'favicon', 'img', 'js', 'scss'], function () {
     return gulp.src(distDir + '/*.{js,css,png,jpg,html}')
         .pipe(rev())
         .pipe(gulp.dest(distDir))
@@ -85,7 +85,10 @@ gulp.task('default', ['html', 'img', 'js', 'scss'], function () {
 });
 
 /* Compile and Move Tasks */
-
+gulp.task('favicon', ['clean-favicon'], function () {
+    return gulp.src('assets/favicon/favicon.ico')
+        .pipe(gulp.dest(distDir + '/../'));
+});
 gulp.task('html', ['clean-html'], function () {
     return gulp.src('assets/html/*.html')
         .pipe(gulp.dest(distDir + '/../'));
@@ -108,7 +111,10 @@ gulp.task('img', ['clean-img'], function () {
 });
 
 /* Cleaning Tasks */
-
+gulp.task('clean-favicon', function () {
+    return gulp.src(distDir + '/../favicon.ico')
+        .pipe(clean());
+});
 gulp.task('clean-html', function () {
     return gulp.src(distDir + '/../*.html', {read: false})
         .pipe(clean());
