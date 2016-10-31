@@ -281,12 +281,22 @@ section {
 
     h3, h4 {
         font-family: $ff-secondary;
+
         font-size: 57px;
+
+        @include responsive-max(xs) {
+            font-size: 43px;
+        }
+
         text-align: center;
         margin: 0;
     }
     
     h4 {
         font-size: 36px;
+
+        @include responsive-max(xs) {
+            font-size: 30px;
+        }
     }
 }
