@@ -285,7 +285,7 @@ section {
         font-size: 57px;
 
         @include responsive-max(xs) {
-            font-size: 43px;
+            font-size: 32px;
         }
 
         text-align: center;
@@ -296,7 +296,7 @@ section {
         font-size: 36px;
 
         @include responsive-max(xs) {
-            font-size: 30px;
+            font-size: 32px;
         }
     }
 }
