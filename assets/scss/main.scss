@@ -1,7 +1,8 @@
 @import "../../node_modules/normalize-scss/sass/normalize";
 @include normalize();
 
-$cream: rgb(255,251,222);
+
+$cream: #FFFBDE;
 $white: #FCF9EA;
 
 $ff-primary: "Dancing Script", serif;
@@ -120,16 +121,19 @@ h2 {
 }
 
 .save-the-date .left {
-    background-image: url('photo-1.jpg');
+    background-image: url('photo-14.jpg');
+    @include responsive-max(m) {
+        background-position: center -20px;
+    }
 }
 .wedding-day-info .left {
-    background-image: url('photo-2.jpg');
+    background-image: url('photo-10.jpg');
 }
 .hotels .left {
     background-image: url('photo-3.jpg');
 }
 .venue .left {
-    background-image: url('photo-5.jpg');
+    background-image: url('photo-1.jpg');
 }
 
 .left {
@@ -157,6 +161,7 @@ h2 {
         top: 167px;
     }
 }
+
 
 .left-space {
     display: none;

@@ -86,7 +86,7 @@ gulp.task('default', ['html', 'favicon', 'img', 'js', 'scss'], function () {
 
 /* Compile and Move Tasks */
 gulp.task('favicon', ['clean-favicon'], function () {
-    return gulp.src('assets/favicon/favicon.ico')
+    return gulp.src('assets/favicon/*')
         .pipe(gulp.dest(distDir + '/../'));
 });
 gulp.task('html', ['clean-html'], function () {
@@ -112,7 +112,7 @@ gulp.task('img', ['clean-img'], function () {
 
 /* Cleaning Tasks */
 gulp.task('clean-favicon', function () {
-    return gulp.src(distDir + '/../favicon.ico')
+    return gulp.src(distDir + '/../{apple*,android*,browser*,favicon*,manifest.json,ms-icon*}')
         .pipe(clean());
 });
 gulp.task('clean-html', function () {
