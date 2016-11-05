@@ -62,9 +62,7 @@ gulp.task('default', ['favicon', 'img', 'js', 'scss'], function () {
                 });
             });
         })())
-        .pipe(rev.manifest({
-            base: '/dist/page/'
-        }))
+        .pipe(rev.manifest())
         .pipe((function () {
             // replacing non-revved file names with revved
             return through.obj(function (file, enc, cb) {
