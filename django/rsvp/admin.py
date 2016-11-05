@@ -11,3 +11,4 @@ class InvitationAdmin(admin.ModelAdmin):
     inlines = (PersonAdmin,)
 
 admin.site.register(Invitation, InvitationAdmin)
+admin.site.site_header = 'Wedding Admin'
