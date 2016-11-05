@@ -6,8 +6,8 @@ const rev     = require('gulp-rev');
 const sass    = require('gulp-sass');
 const through = require('through2');
 
-const publicDir = 'django/page/static/page';
-const templatesDir = 'django/page/templates/page';
+const publicDir = 'wedding/page/static/page';
+const templatesDir = 'wedding/page/templates/page';
 
 const distDir = publicDir;
 

@@ -305,3 +305,25 @@ section {
         }
     }
 }
+
+
+form {
+    margin-bottom: 250px;
+
+    label, input, button {
+        display: block;
+    }
+
+    label {
+        margin-bottom: 5px;
+    }
+
+    input, button {
+        margin-bottom: 20px;
+        width: 200px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid $cream;
+        color: $white;
+        padding: 5px 8px 6px;
+    }
+}

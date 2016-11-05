@@ -1,0 +1,18 @@
+{% extends 'page/layout.html' %}
+
+{% block main %}
+    <h2>RSVP</h2>
+
+    <p>
+        To begin, enter your first and last name as well as the
+        zip code on your invitation.
+    </p>
+
+    <form action="{% url 'rsvp' %}" method="post">
+        {% csrf_token %}
+        {{ person_form }}
+        <button type="submit">OK</button>
+    </form>
+
+    {{ form_data }}
+{% endblock %}
