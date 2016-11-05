@@ -1,0 +1,121 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Hotels | Dan and Christin</title>
+
+        <link rel="apple-touch-icon" sizes="57x57" href="{% static 'page/apple-icon-72e0120d9b.png' %}'">
+        <link rel="apple-touch-icon" sizes="60x60" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="72x72" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'page/apple-icon-72e0120d9b.png' %}">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'page/android-icon-192x192-f02a3d9457.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'page/favicon-32x32-b5591f9a0c.png' %}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{% static 'page/favicon-96x96-4f3cd17717.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'page/favicon-16x16-8f7d87ec06.png' %}">
+        <link rel="manifest" href="{% static 'page/manifest.json' %}">
+        <meta name="msapplication-TileColor" content="#FFFBDE">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144-acdc0769a1.png">
+        <meta name="theme-color" content="#FFFBDE">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script:700|Lato:300,700" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'page/main-819b669782.css' %}">
+    </head>
+    <body class="{{ body_class }}">
+        <script>
+            if (location.hostname !== 'localhost') {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-86649725-1', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        <div class="left">
+
+        </div>
+        <div class="right">
+            <div class="container">
+                <header>
+                    <h1>Dan and Christin</h1>
+                    <ul class="menu">
+                        <li>
+                            <a{% if body_class == 'save_the_date' %} class="active"{% endif %} href="{% url 'save_the_date' %}">Save The Date</a>
+                        </li>
+                        <li>
+                            <a{% if body_class == 'wedding_day_info' %} class="active"{% endif %} href="{% url 'wedding_day_info' %}">Wedding Day Info</a>
+                        </li>
+                        <li>
+                            <a{% if body_class == 'hotels' %} class="active"{% endif %} href="{% url 'hotels' %}">Hotels</a>
+                        </li>
+                        <li>
+                            <a{% if body_class == 'venue' %} class="active"{% endif %} href="{% url 'venue' %}">Venue</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </header>
+
+
+                <div class="left-space"></div>
+
+                {% block main %}
+                    <main>
+                        <h2>Room Block</h2>
+
+                        <p>
+                            <a href="http://www.theabbeyresort.com">The Abbey Resort</a>
+                            &mdash; 20 minutes from venue
+                        </p>
+
+                        <p>
+                            We’ve reserved a room block at a rate of $129 a night.
+                            Make sure to mention "Doyle-Wolf Wedding" or use group code
+                            <code>1137E9</code> when reserving your room!
+                        </p>
+
+                        <p>
+                            Call (800) 709&ndash;1323 and press 2 to reserve your room.
+                        </p>
+
+                        <p>
+                            We recommend that you book your room soon to guarantee yourself a spot,
+                            as the Lake Geneva area books quickly!
+                        </p>
+
+                        <h2>Shuttle</h2>
+
+                        <p>
+                            For your convenience, there will be a shuttle to and from our wedding
+                            available to those guests staying at The Abbey.
+                        </p>
+
+                        <p>Times updated closer to date.</p>
+
+                        <h2>Other Options</h2>
+
+                        <a href="http://www.bestwesternwoodstockinn.com">Best Western Woodstock Inn</a>
+                        &mdash; 15 minutes from venue<br />
+                        <a href="http://www.woodstockqualityhotel.com/">Woodstock Quality Hotel</a> &mdash; 15 minutes from venue</dd>
+
+                    </main>
+                {% endblock %}
+
+            </div>
+        </div>
+
+        <script src="{% static 'page/index-4803d31dcc.js' %}"></script>
+    </body>
+</html>
+
+

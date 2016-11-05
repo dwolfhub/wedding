@@ -6,7 +6,10 @@ const rev     = require('gulp-rev');
 const sass    = require('gulp-sass');
 const through = require('through2');
 
-const distDir = 'public_html/dist';
+const publicDir = 'django/page/static/page';
+const templatesDir = 'django/page/templates/page';
+
+const distDir = publicDir;
 
 
 let hasFileExtension = function (fileName, ext) {
@@ -19,8 +22,18 @@ let replaceInFile = function (fileName, revvedFiles) {
             return;
         }
 
-        for (let j in revvedFiles) {    
-            data = data.replace(new RegExp(j, 'g'), revvedFiles[j]);
+        for (let j in revvedFiles) {
+            if (revvedFiles.hasOwnProperty(j)) {
+                let fileInfo = j.split('.');
+
+                data = data.replace(
+                    new RegExp(
+                        fileInfo[0] + '-?.*\.' + fileInfo[1],
+                        'g'
+                    ),
+                    revvedFiles[j]
+                );
+            }
         }
 
         fs.writeFile(fileName, data, 'utf8');
@@ -31,7 +44,7 @@ gulp.task('watch', function () {
     gulp.watch('assets/**/*', ['default']);
 });
 
-gulp.task('default', ['html', 'favicon', 'img', 'js', 'scss'], function () {
+gulp.task('default', ['favicon', 'img', 'js', 'scss'], function () {
     return gulp.src(distDir + '/*.{js,css,png,jpg,html}')
         .pipe(rev())
         .pipe(gulp.dest(distDir))
@@ -49,19 +62,17 @@ gulp.task('default', ['html', 'favicon', 'img', 'js', 'scss'], function () {
                 });
             });
         })())
-        .pipe(rev.manifest())
+        .pipe(rev.manifest({
+            base: '/dist/page/'
+        }))
         .pipe((function () {
             // replacing non-revved file names with revved
             return through.obj(function (file, enc, cb) {
                 this.push(file);
 
-                let revvedFiles = JSON.parse(file._contents.toString()),
-                    fileNames = ['public_html/index.html', 'public_html/hotels.html', 'public_html/venue.html', 'public_html/wedding-day-info.html'],
-                    i;
+                let revvedFiles = JSON.parse(file._contents.toString());
 
-                for (i = 0; i < fileNames.length; i++) {
-                    fs.readFile(fileNames[i], 'utf8', replaceInFile(fileNames[i], revvedFiles));
-                }
+                fs.readFile(templatesDir + '/layout.html', 'utf8', replaceInFile(templatesDir + '/layout.html', revvedFiles));
 
                 fs.readdir(distDir + '/', function (err, files) {
                     let filesLength = files.length,
@@ -87,11 +98,7 @@ gulp.task('default', ['html', 'favicon', 'img', 'js', 'scss'], function () {
 /* Compile and Move Tasks */
 gulp.task('favicon', ['clean-favicon'], function () {
     return gulp.src('assets/favicon/*')
-        .pipe(gulp.dest(distDir + '/../'));
-});
-gulp.task('html', ['clean-html'], function () {
-    return gulp.src('assets/html/*.html')
-        .pipe(gulp.dest(distDir + '/../'));
+        .pipe(gulp.dest(distDir));
 });
 
 gulp.task('js', ['clean-js'], function () {
@@ -115,11 +122,6 @@ gulp.task('clean-favicon', function () {
     return gulp.src(distDir + '/../{apple*,android*,browser*,favicon*,manifest.json,ms-icon*}')
         .pipe(clean());
 });
-gulp.task('clean-html', function () {
-    return gulp.src(distDir + '/../*.html', {read: false})
-        .pipe(clean());
-});
-
 gulp.task('clean-js', function () {
     return gulp.src(distDir + '/*.js', {read: false})
         .pipe(clean());

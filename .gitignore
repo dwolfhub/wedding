@@ -1,2 +1,5 @@
 node_modules
 public_html
+env
+django/page/static
+django/db.sqlite3

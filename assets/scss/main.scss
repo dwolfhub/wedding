@@ -120,13 +120,13 @@ h2 {
     }
 }
 
-.save-the-date .left {
+.save_the_date .left {
     background-image: url('photo-14.jpg');
     @include responsive-max(m) {
         background-position: center -20px;
     }
 }
-.wedding-day-info .left {
+.wedding_day_info .left {
     background-image: url('photo-10.jpg');
 }
 .hotels .left {
@@ -265,7 +265,7 @@ section {
     }
 }
 
-.save-the-date {
+.save_the_date {
     h2 {
         font-size: 118px;
         text-align: center;
