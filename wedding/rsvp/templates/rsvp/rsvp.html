@@ -3,16 +3,56 @@
 {% block main %}
     <h2>RSVP</h2>
 
-    <p>
-        To begin, enter your first and last name as well as the
-        zip code on your invitation.
-    </p>
+    {% if complete %}
+        <p>
+            Thanks for letting us know! Feel free to come back later
+            if you need to change your RSVP.
+        </p>
+    {% elif person %}
+        <p>
+            Hi, {{ person.display_name }}!
+        </p>
+        <p>
+            Please check the box next to each member of your party that will be
+            attending.
+        </p>
 
-    <form action="{% url 'rsvp' %}" method="post">
-        {% csrf_token %}
-        {{ person_form }}
-        <button type="submit">OK</button>
-    </form>
+        <form action="{% url 'rsvp' %}" method="POST">
+            {{ people_form.non_field_errors }}
 
-    {{ form_data }}
+            {% csrf_token %}
+
+            {{ people_form.people.errors }}
+            {{ people_form.people }}
+
+            {{ people_form.message.errors }}
+            {{ people_form.message.label_tag }}
+            {{ people_form.message }}
+
+            {{ people_form.invitation }}
+            {{ people_form.person }}
+
+            <input type="hidden" name="form" value="people_form">
+            <button type="submit">Submit</button>
+        </form>
+    {% else %}
+        {% if error %}
+            <p>{{ error | safe }}</p>
+
+        {% else %}
+            <p>
+                To begin, enter your first and last name as well as the
+                zip code on your invitation.
+            </p>
+
+        {% endif %}
+
+        <form action="{% url 'rsvp' %}" method="post">
+            {% csrf_token %}
+            {{ person_form }}
+            <input type="hidden" name="form" value="person_form">
+            <button type="submit">OK</button>
+        </form>
+
+    {% endif %}
 {% endblock %}

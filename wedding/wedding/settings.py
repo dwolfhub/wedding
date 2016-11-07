@@ -120,3 +120,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/dist/'
+
+MAILGUN_API_KEY = ''
+MAILGUN_API_DOMAIN = ''
+MAILGUN_API_RECIPIENTS = []
+
+
+# import sensitive settings from a settings_secret.py file
+from .settings_secret import *

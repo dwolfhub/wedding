@@ -1,3 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 
-# Create your tests here.
+
+class TestPersonForm(TestCase):
+    def test_is_testing(self):
+        self.assertTrue(True)
+        # client = Client()
+        # response = c.get(/)

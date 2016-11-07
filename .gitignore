@@ -3,3 +3,4 @@ public_html
 env
 wedding/page/static
 wedding/db.sqlite3
+wedding/wedding/settings_secret.py

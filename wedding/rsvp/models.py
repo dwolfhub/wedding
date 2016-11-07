@@ -14,6 +14,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=25)
     display_name = models.CharField(max_length=50)
     invitation = models.ForeignKey(Invitation, on_delete=models.CASCADE)
+    coming = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'people'
