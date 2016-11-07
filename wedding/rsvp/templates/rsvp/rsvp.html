@@ -1,23 +1,24 @@
 {% extends 'page/layout.html' %}
 
 {% block main %}
-    <h2>RSVP</h2>
 
     {% if complete %}
+        <h2>
+            Thanks for letting us know!
+        </h2>
         <p>
-            Thanks for letting us know! Feel free to come back later
-            if you need to change your RSVP.
+            Feel free to come back later if you need to change your RSVP.
         </p>
     {% elif person %}
-        <p>
+        <h2>
             Hi, {{ person.display_name }}!
-        </p>
+        </h2>
         <p>
-            Please check the box next to each member of your party that will be
-            attending.
+            Let us know who will be joining us from your party.
         </p>
 
-        <form action="{% url 'rsvp' %}" method="POST">
+        <div class="checkbox-title">Attending</div>
+        <form action="{% url 'rsvp' %}" method="POST" id="people-coming-form">
             {{ people_form.non_field_errors }}
 
             {% csrf_token %}
@@ -36,10 +37,15 @@
             <button type="submit">Submit</button>
         </form>
     {% else %}
-        {% if error %}
-            <p>{{ error | safe }}</p>
+        {% if lookup_error %}
+            <h2>Not Found</h2>
+            <p>
+                Please make sure you are using the zip code found on your invitation.
+            </p>
 
         {% else %}
+            <h2>RSVP</h2>
+
             <p>
                 To begin, enter your first and last name as well as the
                 zip code on your invitation.
@@ -47,7 +53,7 @@
 
         {% endif %}
 
-        <form action="{% url 'rsvp' %}" method="post">
+        <form action="{% url 'rsvp' %}" method="post" id="person-lookup-form">
             {% csrf_token %}
             {{ person_form }}
             <input type="hidden" name="form" value="person_form">

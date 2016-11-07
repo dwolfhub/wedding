@@ -332,8 +332,9 @@ form {
     }
 
     input[type="checkbox"] {
-        float: left;
-        margin: 4px 7px 4px 0
+        float: right;
+        margin: 4px 0;
+        cursor: pointer;
     }
 
     label {
@@ -342,6 +343,8 @@ form {
 
     li label {
         margin-bottom: 15px;
+        display: inline;
+        cursor: pointer;
     }
 
     button {
@@ -356,5 +359,11 @@ form {
     ul {
         list-style: none;
         padding: 0;
+        max-width: 225px;
+    }
+
+    .checkbox-title {
+        width: 225px;
+
     }
 }

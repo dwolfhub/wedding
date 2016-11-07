@@ -15,9 +15,5 @@ def hotels(request):
     return __render_with_body_class(request, 'page/hotels.html')
 
 
-def venue(request):
-    return __render_with_body_class(request, 'page/venue.html')
-
-
 def wedding_day_info(request):
     return __render_with_body_class(request, 'page/wedding-day-info.html')
