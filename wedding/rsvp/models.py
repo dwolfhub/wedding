@@ -1,7 +1,11 @@
+import uuid
+
 from django.db import models
 
 
 class Invitation(models.Model):
+    token = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                             editable=False)
     title = models.CharField(max_length=255)
     zip_code = models.CharField(max_length=6)
 
@@ -10,6 +14,8 @@ class Invitation(models.Model):
 
 
 class Person(models.Model):
+    token = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                             editable=False)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     display_name = models.CharField(max_length=50)

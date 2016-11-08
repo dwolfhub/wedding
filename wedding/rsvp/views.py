@@ -1,5 +1,6 @@
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from requests.exceptions import ConnectionError
 
 from wedding.settings import MAILGUN_API_KEY, MAILGUN_API_DOMAIN, \
@@ -35,7 +36,6 @@ def __send_email(person, people, total):
 
 
 def rsvp(request):
-    complete = None
     lookup_error = False
     person = None
     person_form = None
@@ -61,15 +61,15 @@ def rsvp(request):
                     coming = []
                     for peep in people:
                         if peep.coming:
-                            coming.append(str(peep.id))
+                            coming.append(str(peep.token))
 
                     people_choices = (
-                        (person.id, person.first_name + ' ' + person.last_name)
+                        (person.token, person.first_name + ' ' + person.last_name)
                         for person in people
                     )
 
                     people_form = PeopleForm(people_choices, {
-                        'person': person.id,
+                        'person': person.token,
                         'invitation': person.invitation_id,
                         'people': coming
                     })
@@ -80,22 +80,20 @@ def rsvp(request):
         # people form submitted
         if request.POST.get('form', False) == 'people_form':
             try:
-                person = Person.objects.get(id=request.POST.get('person', None))
+                person = Person.objects.get(token=request.POST.get('person', None))
 
                 people = Invitation.objects.get(
-                    id=request.POST['invitation']).person_set.all()
+                    token=request.POST['invitation']).person_set.all()
                 people_choices = (
-                    (person.id, person.first_name + ' ' + person.last_name)
+                    (person.token, person.first_name + ' ' + person.last_name)
                     for person in people)
 
                 people_form = PeopleForm(people_choices, request.POST)
                 if people_form.is_valid():
-                    complete = True
-
                     form_data = people_form.cleaned_data
 
                     for peep in people:
-                        if str(peep.id) in form_data['people']:
+                        if str(peep.token) in form_data['people']:
                             peep.coming = True
                         else:
                             peep.coming = False
@@ -109,6 +107,8 @@ def rsvp(request):
                         [peep.display_name for peep in people if peep.coming],
                         total_complete
                     )
+
+                    return redirect(reverse('rsvp') + "?s=1")
             except Person.DoesNotExist:
                 pass
             except Invitation.DoesNotExist:
@@ -128,5 +128,5 @@ def rsvp(request):
         'people_form': people_form,
 
         'lookup_error': lookup_error,
-        'complete': complete,
+        'complete': request.GET.get('s', False),
     })
