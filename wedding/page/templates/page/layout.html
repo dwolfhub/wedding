@@ -42,13 +42,14 @@
                 ga('send', 'pageview');
             }
         </script>
-        <div class="left">
 
-        </div>
+        <div class="left"></div>
+
         <div class="right">
             <div class="container">
                 <header>
                     <h1>Dan and Christin</h1>
+
                     <ul class="menu">
                         <li>
                             <a{% if body_class == 'save_the_date' %} class="active"{% endif %} href="{% url 'save_the_date' %}">Save The Date</a>
@@ -60,57 +61,20 @@
                             <a{% if body_class == 'hotels' %} class="active"{% endif %} href="{% url 'hotels' %}">Hotels</a>
                         </li>
                         <li>
+                            <a{% if body_class == 'venue' %} class="active"{% endif %} href="{% url 'venue' %}">Venue</a>
+                        </li>
+                        <li>
                             <a{% if body_class == 'rsvp' %} class="active"{% endif %} href="{% url 'rsvp' %}">RSVP</a>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
                 </header>
 
-
                 <div class="left-space"></div>
 
                 {% block main %}
-                    <main>
-                        <h2>Room Block</h2>
-
-                        <p>
-                            <a href="http://www.theabbeyresort.com">The Abbey Resort</a>
-                            &mdash; 20 minutes from venue
-                        </p>
-
-                        <p>
-                            We’ve reserved a room block at a rate of $129 a night.
-                            Make sure to mention "Doyle-Wolf Wedding" or use group code
-                            <code>1137E9</code> when reserving your room!
-                        </p>
-
-                        <p>
-                            Call (800) 709&ndash;1323 and press 2 to reserve your room.
-                        </p>
-
-                        <p>
-                            We recommend that you book your room soon to guarantee yourself a spot,
-                            as the Lake Geneva area books quickly!
-                        </p>
-
-                        <h2>Shuttle</h2>
-
-                        <p>
-                            For your convenience, there will be a shuttle to and from our wedding
-                            available to those guests staying at The Abbey.
-                        </p>
-
-                        <p>Times updated closer to date.</p>
-
-                        <h2>Other Options</h2>
-
-                        <a href="http://www.bestwesternwoodstockinn.com">Best Western Woodstock Inn</a>
-                        &mdash; 15 minutes from venue<br />
-                        <a href="http://www.woodstockqualityhotel.com/">Woodstock Quality Hotel</a> &mdash; 15 minutes from venue</dd>
-
-                    </main>
+                    <main></main>
                 {% endblock %}
-
             </div>
         </div>
 
