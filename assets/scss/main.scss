@@ -134,11 +134,11 @@ h2 {
     background-image: url('photo-3.jpg');
 }
 .venue .left {
-    background-image: url('photo-1.jpg');
+    background-image: url('photo-100.jpg');
 }
 
 .left {
-    background: url('photo-1.jpg') top center;
+    background: url('photo-100.jpg') top center;
     background-size: cover;
 
     @include responsive-max(xs) {
