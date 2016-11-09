@@ -91,10 +91,12 @@ def rsvp(request):
                 people_form = PeopleForm(people_choices, request.POST)
                 if people_form.is_valid():
                     form_data = people_form.cleaned_data
+                    coming = 'n'
 
                     for peep in people:
                         if str(peep.token) in form_data['people']:
                             peep.coming = True
+                            coming = 'y'
                         else:
                             peep.coming = False
 
@@ -108,7 +110,7 @@ def rsvp(request):
                         total_complete
                     )
 
-                    return redirect(reverse('rsvp') + "?s=1")
+                    return redirect(reverse('rsvp') + '?s=1&a=' + coming)
             except Person.DoesNotExist:
                 pass
             except Invitation.DoesNotExist:
@@ -129,4 +131,5 @@ def rsvp(request):
 
         'lookup_error': lookup_error,
         'complete': request.GET.get('s', False),
+        'coming': request.GET.get('a', False)
     })

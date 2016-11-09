@@ -3,12 +3,27 @@
 {% block main %}
 
     {% if complete %}
-        <h2>
-            Thanks for letting us know!
-        </h2>
-        <p>
-            Feel free to come back later if you need to change your RSVP.
-        </p>
+        {% if coming == 'y' %}
+            <h2>
+                Thank You
+            </h2>
+            <p>
+                We appreciate you letting us know.
+                Feel free to come back later if you need to update your RSVP.
+            </p>
+            <p>
+                Be sure to come back later for wedding day info.
+            </p>
+        {% else %}
+            <h2>
+                Sorry You Can't Make It
+            </h2>
+            <p>
+                We appreciate you letting us know.
+                Feel free to come back later if you need to update your RSVP.
+            </p>
+        {% endif %}
+
     {% elif person %}
         <h2>
             Hi, {{ person.display_name }}!
