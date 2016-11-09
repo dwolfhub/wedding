@@ -122,6 +122,7 @@ h2 {
 
 .save-the-date .left {
     background-image: url('photo-14.jpg');
+
     @include responsive-max(m) {
         background-position: center -20px;
     }
