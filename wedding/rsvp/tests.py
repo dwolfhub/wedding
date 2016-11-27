@@ -8,12 +8,12 @@ class TestPersonForm(TestCase):
         invite.save()
 
         person = Person(first_name='John', last_name='Doe',
-                        display_name='Uncle John', invitation_id=invite.id,
+                        display_name='Uncle John', invitation_id=invite.token,
                         coming=False)
         person.save()
 
         person_2 = Person(first_name='Jane', last_name='Doe',
-                          display_name='Aunt Jane', invitation_id=invite.id,
+                          display_name='Aunt Jane', invitation_id=invite.token,
                           coming=False)
         person_2.save()
 

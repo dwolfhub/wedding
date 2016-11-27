@@ -7,9 +7,14 @@ from wedding.settings import MAILGUN_API_KEY, MAILGUN_API_DOMAIN, \
     MAILGUN_API_RECIPIENTS
 from .forms import PersonForm, PeopleForm
 from .models import Person, Invitation
+import logging
+
+logger = logging.getLogger('django')
 
 
 def __send_email(person, people, total):
+    logger.info('sending email to person %s, people %s, total %s',
+                (person, people, total))
     message = person.display_name + " just RSVPed"
     if people:
         message += "\n\nThe following people are coming:\n" \
@@ -25,6 +30,7 @@ def __send_email(person, people, total):
 
     request_url = 'https://api.mailgun.net/v2/%s/messages' % domain
     try:
+
         requests.post(request_url, auth=('api', key), data={
             'from': 'no-reply@danandchristin.com',
             'to': recipients,
@@ -36,6 +42,7 @@ def __send_email(person, people, total):
 
 
 def rsvp(request):
+    logger.info('%s page loaded' % request.resolver_match.url_name)
     lookup_error = False
     person = None
     person_form = None
@@ -45,8 +52,10 @@ def rsvp(request):
     if request.method == 'POST':
         # person form submitted
         if request.POST.get('form', False) == 'person_form':
+            logger.info('person form posted')
             person_form = PersonForm(request.POST)
             if person_form.is_valid():
+                logger.info('form is valid')
                 form_data = person_form.cleaned_data
 
                 try:
@@ -55,6 +64,7 @@ def rsvp(request):
                         last_name__iexact=form_data['last_name'],
                         invitation__zip_code=form_data['zip_code'],
                     )
+                    logger.info('person found')
 
                     people = person.invitation.person_set.all()
 
@@ -64,7 +74,8 @@ def rsvp(request):
                             coming.append(str(peep.token))
 
                     people_choices = (
-                        (person.token, person.first_name + ' ' + person.last_name)
+                        (person.token,
+                         person.first_name + ' ' + person.last_name)
                         for person in people
                     )
 
@@ -75,15 +86,32 @@ def rsvp(request):
                     })
 
                 except Person.DoesNotExist:
+                    logger.info('person not found using info (%s, %s, %s)' % (
+                        form_data['first_name'],
+                        form_data['last_name'],
+                        form_data['zip_code']
+                    ))
                     lookup_error = True
 
         # people form submitted
         if request.POST.get('form', False) == 'people_form':
+            logger.info('people form posted')
             try:
-                person = Person.objects.get(token=request.POST.get('person', None))
 
-                people = Invitation.objects.get(
-                    token=request.POST['invitation']).person_set.all()
+                try:
+                    person = Person.objects.get(
+                        token=request.POST.get('person', None))
+                except ValueError:
+                    logger.error('invalid uuid posted for person')
+                    raise Person.DoesNotExist
+
+                try:
+                    people = Invitation.objects.get(
+                        token=request.POST['invitation']).person_set.all()
+                except ValueError:
+                    logger.error('invalid uuid posted for invitation')
+                    raise Person.DoesNotExist
+
                 people_choices = (
                     (person.token, person.first_name + ' ' + person.last_name)
                     for person in people)
@@ -112,11 +140,17 @@ def rsvp(request):
 
                     return redirect(reverse('rsvp') + '?s=1&a=' + coming)
             except Person.DoesNotExist:
-                pass
+                logger.error('person doesnt exist: %s' % (
+                    request.POST.get('person', None)
+                ))
             except Invitation.DoesNotExist:
-                pass
+                logger.error('invitation doesnt exist: %s' % (
+                    request.POST['invitation']
+                ))
 
     else:
+        logger.info('forms not posted')
+
         # neither form submitted
         person_form = PersonForm()
 

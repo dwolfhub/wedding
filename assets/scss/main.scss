@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     color: $cream;
     text-align: center;
-    margin: 0 0 15px;
+    margin: 0 0 5px;
     font-size: 64px;
 
     @media all and (max-width: 1014px) {
@@ -146,7 +146,7 @@ h2 {
 
     @include responsive-max(s) {
         background: url(photo-1.jpg) center center no-repeat;
-        box-shadow: 0 0 25px 0 white;
+        box-shadow: 0 0 15px 0 white;
         border-radius: 4px;
         height: 0;
         position: absolute;
@@ -208,25 +208,28 @@ header {
         margin: 0 auto;
         padding: 0;
         list-style: none;
-
-        $li-margin: 8px;
-        $menu-width: 111.75px + 140px + 53.67px + 48.52px + ($li-margin * 2 * 4);
-
-        width: $menu-width;
+        float: left;
+        width: 100%;
         max-width: 100%;
 
         li {
-            display: inline;
+            display: block;
             text-align: center;
-            width: 50%;
             float: left;
-            margin: 5px 0;
-            
-            @include responsive-min(l) {
-                width: auto;
-                float: none;
-                margin: 0 $li-margin;
+            margin: 5px 0 0;
+
+            width: 33%;
+
+            @include responsive-min(m) {
+                @include responsive-max(l) {
+                    width: 50%;
+                }
             }
+
+            @include responsive-max(xs) {
+                width: 50%;
+            }
+
 
             a {
                 font-weight: 700;
@@ -235,23 +238,12 @@ header {
                 text-decoration: none;
 
                 @include responsive-max(s) {
-                    font-size: 16px;
+                    font-size: 14px;
                 }
 
                 &.active {
                     @include active-style;
                 }
-            }
-        }
-        
-        @include responsive-min(xl) {
-            $li-margin: 18px;
-            $menu-width: 111.75px + 140px + 53.67px + 48.52px + ($li-margin * 2 * 4);
-
-            width: $menu-width;
-
-            li {
-                margin: 0 $li-margin;
             }
         }
     }

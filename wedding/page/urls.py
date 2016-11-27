@@ -14,4 +14,5 @@ urlpatterns = (
     url(r'wedding-day-info.html$',
         RedirectView.as_view(url=reverse_lazy('wedding_day_info'),
                              permanent=True)),
+    url(r'bridal-party.html$', views.bridal_party, name='bridal_party'),
 )
