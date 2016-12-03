@@ -127,7 +127,7 @@ def rsvp(request):
                             coming = 'y'
                         else:
                             peep.coming = False
-
+                        peep.responded = True
                         peep.save()
 
                     total_complete = Person.objects.filter(coming=True).count()

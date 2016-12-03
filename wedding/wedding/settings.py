@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'page',
     'rsvp',
+    'import_export',
 ]
 
 MIDDLEWARE = [
