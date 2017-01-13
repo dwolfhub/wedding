@@ -1,18 +1,21 @@
 @import "../../node_modules/normalize-scss/sass/normalize";
-@include normalize();
 
+@include normalize();
 
 $cream: #FFFBDE;
 $white: #FCF9EA;
+$brown: #322019;
 
 $ff-primary: "Dancing Script", serif;
 $ff-secondary: "Lato", serif;
 
+@import "forms";
+
+
 $small: 480px;
-$medium: 768px;
+$medium: 769px;
 $large: 1024px;
 $xlarge: 1320px;
-
 
 @mixin responsive-min($size) {
     @if $size == xs {
@@ -35,7 +38,7 @@ $xlarge: 1320px;
         @media all and (min-width: $xlarge) {
             @content;
         }
-        
+
     }
 }
 
@@ -81,7 +84,7 @@ h1 {
     @media all and (max-width: 1014px) {
         font-size: 40px;
     }
-    
+
     @include responsive-max(xs) {
         font-size: 42px;
         margin-bottom: 0;
@@ -126,12 +129,15 @@ h2 {
         background-position: center -20px;
     }
 }
+
 .wedding_day_info .left {
     background-image: url('photo-10.jpg');
 }
+
 .hotels .left {
     background-image: url('photo-3.jpg');
 }
+
 .venue .left {
     background-image: url('photo-1.jpg');
 }
@@ -158,10 +164,9 @@ h2 {
     }
 
     @include responsive-max(xs) {
-        top: 167px;
+        top: 180px;
     }
 }
-
 
 .left-space {
     display: none;
@@ -193,7 +198,6 @@ h2 {
 a, a:visited, a:active {
     color: $cream;
 }
-
 
 header {
     @mixin active-style {
@@ -229,7 +233,6 @@ header {
             @include responsive-max(xs) {
                 width: 50%;
             }
-
 
             a {
                 font-weight: 700;
@@ -269,7 +272,7 @@ section {
         @media all and (max-width: 1233px) {
             font-size: 52px;
         }
-        
+
         @include responsive-max(xs) {
             margin-top: 10px;
         }
@@ -288,74 +291,12 @@ section {
         text-align: center;
         margin: 0;
     }
-    
+
     h4 {
         font-size: 36px;
 
         @include responsive-max(xs) {
             font-size: 32px;
         }
-    }
-}
-
-form {
-    margin-bottom: 250px;
-
-    label, input[type="text"], button, textarea {
-        display: block;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-    }
-
-    input[type="text"], button, textarea {
-        margin-bottom: 20px;
-        width: 200px;
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid $cream;
-        color: $white;
-        padding: 5px 8px 6px;
-    }
-
-    textarea {
-        width: 400px;
-        max-width: 100%;
-        height: 100px;
-    }
-
-    input[type="checkbox"] {
-        float: right;
-        margin: 4px 0;
-        cursor: pointer;
-    }
-
-    label {
-        margin-bottom: 5px;
-    }
-
-    li label {
-        margin-bottom: 15px;
-        display: inline;
-        cursor: pointer;
-    }
-
-    button {
-        cursor: pointer;
-        width: 150px;
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-        max-width: 225px;
-    }
-
-    .checkbox-title {
-        width: 225px;
-
     }
 }

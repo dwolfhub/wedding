@@ -1,5 +1,7 @@
 {% extends 'page/layout.html' %}
 
+{% block title %}RSVP{% endblock %}
+
 {% block main %}
 
     {% if complete %}
@@ -28,11 +30,10 @@
         <h2>
             Hi, {{ person.display_name }}!
         </h2>
-        <p>
+        <p class="form-description">
             Let us know who will be joining us from your party.
         </p>
 
-        <div class="checkbox-title">Attending</div>
         <form action="{% url 'rsvp' %}" method="POST" id="people-coming-form">
             {{ people_form.non_field_errors }}
 
@@ -45,11 +46,15 @@
             {{ people_form.message.label_tag }}
             {{ people_form.message }}
 
+            <!-- hidden -->
             {{ people_form.invitation }}
             {{ people_form.person }}
+            <!-- /hidden -->
 
             <input type="hidden" name="form" value="people_form">
-            <button type="submit">Submit</button>
+            <div class="form-width-wrapper">
+                <button type="submit">Submit</button>
+            </div>
         </form>
     {% else %}
         {% if lookup_error %}

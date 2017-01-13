@@ -1,0 +1,98 @@
+.form-description {
+    margin-bottom: 25px;
+}
+
+.form-width-wrapper {
+    width: 400px;
+    max-width: 100%;
+
+    label {
+        float: left;
+        margin-bottom: 32px;
+    }
+}
+
+form {
+    margin-bottom: 250px;
+
+    label, input[type="text"], button, textarea {
+        display: block;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+
+    input[type="text"], button, textarea, select {
+        font-family: $ff-secondary;
+        margin-bottom: 20px;
+        width: 250px;
+        color: $white;
+        background: transparentize($white, .8);
+        border: 1px solid $white;
+        //border: none;
+        padding: 5px 8px 6px;
+        font-size: 18px;
+
+        &:focus, &:active, &:hover {
+            outline: none;
+            background: transparentize($white, .75);
+        }
+    }
+
+    button {
+        cursor: pointer;
+        width: 150px;
+    }
+
+    textarea {
+        width: 400px;
+        max-width: 100%;
+        height: 100px;
+    }
+
+    $select-height: 34px;
+    $select-width: 170px;
+    .select-wrapper {
+        height: $select-height;
+        width: $select-width;
+        position: relative;
+        display: block;
+        overflow: hidden;
+        float: right;
+
+        color: $white;
+        border: 1px solid $white;
+
+        &:after {
+            content: "▼";
+            padding: 12px 8px;
+            position: absolute;
+            right: 15px;
+            top: 0;
+            z-index: 1;
+            text-align: center;
+            width: 10%;
+            height: 100%;
+            pointer-events: none;
+            box-sizing: border-box;
+            color: $white;
+            font-size: 11px;
+            line-height: 14px;
+        }
+    }
+
+    select {
+        height: $select-height;
+        width: $select-width;
+        outline: none;
+        padding: 5px 10px;
+        border: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    label[for="id_message"] {
+        margin: 10px 0;
+    }
+}
