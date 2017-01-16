@@ -9,10 +9,6 @@ $brown: #322019;
 $ff-primary: "Dancing Script", serif;
 $ff-secondary: "Lato", serif;
 
-@import "forms";
-@import "bridal-party";
-
-
 $small: 480px;
 $medium: 769px;
 $large: 1024px;
@@ -62,6 +58,9 @@ $xlarge: 1320px;
         }
     }
 }
+
+@import "forms";
+@import "bridal-party";
 
 html, body {
     height: 100%;
