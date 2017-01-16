@@ -45,7 +45,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['favicon', 'img', 'js', 'scss'], function () {
-    return gulp.src(distDir + '/*.{js,css,png,jpg,html}')
+    return gulp.src(distDir + '/*.{js,css,png,jpg,jpeg,html}')
         .pipe(rev())
         .pipe(gulp.dest(distDir))
         .pipe((function () {
@@ -131,7 +131,7 @@ gulp.task('clean-css', function () {
 });
 
 gulp.task('clean-img', function () {
-    return gulp.src(distDir + '/*.{png,jpg}', {read: false})
+    return gulp.src(distDir + '/*.{png,jpg,jpeg}', {read: false})
         .pipe(clean());
 });
 
