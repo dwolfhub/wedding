@@ -13,7 +13,7 @@ logger = logging.getLogger('django')
 
 
 def __send_email(person, people, total, msg):
-    logger.info('sending email to person %s, people %s, total %s',
+    logger.info('sending email to person %s, people %s, total %s' %
                 (person, people, total))
     message = person.display_name + " just RSVPed"
     if people:
@@ -37,7 +37,7 @@ def __send_email(person, people, total, msg):
         requests.post(request_url, auth=('api', key), data={
             'from': 'no-reply@danandchristin.com',
             'to': recipients,
-            'subject': 'Hello',
+            'subject': 'Someone RSVP\'d!',
             'text': message
         })
     except ConnectionError:
