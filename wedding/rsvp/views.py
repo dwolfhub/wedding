@@ -12,7 +12,7 @@ import logging
 logger = logging.getLogger('django')
 
 
-def __send_email(person, people, total):
+def __send_email(person, people, total, msg):
     logger.info('sending email to person %s, people %s, total %s',
                 (person, people, total))
     message = person.display_name + " just RSVPed"
@@ -22,7 +22,10 @@ def __send_email(person, people, total):
     else:
         message += "\n\nNo one in the party is coming,"
 
-    message += "\n\nThe current total is %d" % total
+    message += "\n\nThe current total is %d, including children." % total
+
+    if msg:
+        message += "\n\nThey left a message:\n\n%s" % msg
 
     key = MAILGUN_API_KEY
     domain = MAILGUN_API_DOMAIN
@@ -135,7 +138,8 @@ def rsvp(request):
                     __send_email(
                         person,
                         [peep.display_name for peep in people if peep.coming],
-                        total_complete
+                        total_complete,
+                        form_data['message']
                     )
 
                     return redirect(reverse('rsvp') + '?s=1&a=' + coming)
