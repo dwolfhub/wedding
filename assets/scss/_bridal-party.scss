@@ -8,7 +8,6 @@ body.bridal_party {
         display: block;
         float: left;
         width: calc(33% - 8px);
-        height: calc(33% - 8px);
         @include responsive-max(xs) {
             width: calc(50% - 10px);
         }
