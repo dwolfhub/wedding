@@ -1,4 +1,6 @@
+import logging
 import requests
+import time
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from requests.exceptions import ConnectionError
@@ -7,7 +9,6 @@ from wedding.settings import MAILGUN_API_KEY, MAILGUN_API_DOMAIN, \
     MAILGUN_API_RECIPIENTS
 from .forms import PersonForm, PeopleForm
 from .models import Person, Invitation
-import logging
 
 logger = logging.getLogger('django')
 
@@ -89,6 +90,7 @@ def rsvp(request):
                     })
 
                 except Person.DoesNotExist:
+                    time.sleep(.2)
                     logger.info('person not found using info (%s, %s, %s)' % (
                         form_data['first_name'],
                         form_data['last_name'],
