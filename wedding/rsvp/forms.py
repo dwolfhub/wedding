@@ -104,8 +104,8 @@ class PeopleForm(forms.Form):
         required=False
     )
     shuttle = forms.ChoiceField(choices=((True, 'Yes'), (False, 'No')),
-                                label='Will you be taking the shuttle to and '
-                                      'from The Abbey Resort to the venue?',
+                                label='Will you be using the shuttle provided '
+                                      'at The Abbey?',
                                 initial='',
                                 widget=Dropdown(), required=True)
     message = forms.CharField(
