@@ -10,7 +10,7 @@ class PersonResource(resources.ModelResource):
     class Meta:
         model = Person
         fields = ('first_name', 'last_name', 'responded', 'responded_datetime',
-                  'coming',)
+                  'coming', 'invitation__shuttle', 'invitation__ceremony',)
 
 
 class PersonAdmin(ExportMixin, admin.ModelAdmin):

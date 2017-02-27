@@ -1,6 +1,8 @@
 from django import forms
+from django.forms.utils import flatatt
 from django.utils.encoding import force_text
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 
 class DropdownChoiceInput(forms.widgets.ChoiceInput):
@@ -27,7 +29,10 @@ class DropdownChoiceInput(forms.widgets.ChoiceInput):
             '<option value="" {}>cannot attend</option>'
             '<option value="{}" {}>will be attending</option>'
             '</select>'
-            '</div><div class="clearfix"></div>'.format(self.choice_label, self.index, not_coming, self.choice_value, coming)
+            '</div><div class="clearfix"></div>'.format(self.choice_label,
+                                                        self.index, not_coming,
+                                                        self.choice_value,
+                                                        coming)
         )
 
 
@@ -51,6 +56,19 @@ class DropdownSelectMultiple(forms.widgets.RendererMixin, forms.SelectMultiple):
         else:
             return data.get(name)
 
+
+class Dropdown(forms.Select):
+    def render(self, name, value, attrs=None):
+        if value is None:
+            value = ''
+        final_attrs = self.build_attrs(attrs, name=name)
+        output = [format_html('<div class="select-wrapper"><select{}>',
+                              flatatt(final_attrs))]
+        options = self.render_options([value])
+        if options:
+            output.append(options)
+        output.append('</select></div>')
+        return mark_safe('\n'.join(output))
 
 
 class PersonForm(forms.Form):
@@ -85,6 +103,11 @@ class PeopleForm(forms.Form):
         widget=DropdownSelectMultiple(),
         required=False
     )
+    shuttle = forms.ChoiceField(choices=((True, 'Yes'), (False, 'No')),
+                                label='Will you be taking the shuttle to and '
+                                      'from The Abbey Resort to the venue?',
+                                initial='',
+                                widget=Dropdown(), required=True)
     message = forms.CharField(
         widget=forms.Textarea,
         label="Leave a message for the Bride and Groom",

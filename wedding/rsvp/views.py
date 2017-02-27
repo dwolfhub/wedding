@@ -52,6 +52,7 @@ def rsvp(request):
     person_form = None
     people = None
     people_form = None
+    ceremony = False
 
     if request.method == 'POST':
         # person form submitted
@@ -83,10 +84,13 @@ def rsvp(request):
                         for person in people
                     )
 
+                    ceremony = person.invitation.ceremony
+
                     people_form = PeopleForm(people_choices, {
                         'person': person.token,
                         'invitation': person.invitation_id,
-                        'people': coming
+                        'people': coming,
+                        'shuttle': person.invitation.shuttle
                     })
 
                 except Person.DoesNotExist:
@@ -102,7 +106,6 @@ def rsvp(request):
         if request.POST.get('form', False) == 'people_form':
             logger.info('people form posted')
             try:
-
                 try:
                     person = Person.objects.get(
                         token=request.POST.get('person', None))
@@ -135,8 +138,10 @@ def rsvp(request):
                         peep.responded = True
                         peep.save()
 
-                    total_complete = Person.objects.filter(coming=True).count()
+                    person.invitation.shuttle = form_data['shuttle'] == 'True'
+                    person.invitation.save()
 
+                    total_complete = Person.objects.filter(coming=True).count()
                     __send_email(
                         person,
                         [peep.display_name for peep in people if peep.coming],
@@ -171,5 +176,6 @@ def rsvp(request):
 
         'lookup_error': lookup_error,
         'complete': request.GET.get('s', False),
-        'coming': request.GET.get('a', False)
+        'coming': request.GET.get('a', False),
+        'ceremony': ceremony,
     })

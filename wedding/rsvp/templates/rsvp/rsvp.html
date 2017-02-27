@@ -30,9 +30,23 @@
         <h2>
             Hi, {{ person.display_name }}!
         </h2>
+
+        <div class="form-width-wrapper">
+            <p>
+                {% if ceremony %}
+                    Please join us for a private ceremony at 4 o'clock.
+                {% else %}
+                    Please note that the bride and groom have planned a private
+                    ceremony but look forward to seeing you at cocktail hour at
+                    5 o'clock.
+                {% endif %}
+            </p>
+        </div>
+
         <p class="form-description">
             Let us know who will be joining us from your party.
         </p>
+
 
         <form action="{% url 'rsvp' %}" method="POST" id="people-coming-form">
             {{ people_form.non_field_errors }}
@@ -42,7 +56,24 @@
             {{ people_form.people.errors }}
             {{ people_form.people }}
 
-            {{ people_form.message.errors }}
+            {% if ceremony %}
+                <div class="hidden">
+            {% endif %}
+
+            <div class="clearfix"></div>
+
+            <div class="form-width-wrapper">
+                {{ people_form.shuttle.label_tag }}
+                {{ people_form.shuttle }}
+            </div>
+
+
+            {% if ceremony %}
+                </div>
+            {% endif %}
+
+            <div class="clearfix"></div>
+
             {{ people_form.message.label_tag }}
             {{ people_form.message }}
 
@@ -61,7 +92,8 @@
             <h2>Not Found</h2>
             <p>
                 Please make sure you are using the name and zip code as printed on your invitation.
-                If you are still having trouble, you can <a href="mailto:danielrwolf5@gmail.com">email us</a> for help.
+                If you are still having trouble, you can
+                <a href="mailto:danielrwolf5@gmail.com">email us</a> for help.
             </p>
 
         {% else %}

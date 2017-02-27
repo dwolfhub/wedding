@@ -10,6 +10,10 @@ class Invitation(models.Model):
     title = models.CharField(max_length=255)
     zip_code = models.CharField(max_length=6)
 
+    ceremony = models.BooleanField(default=False)
+
+    shuttle = models.BooleanField(default=False)
+
     def __str__(self):
         return self.title
 
