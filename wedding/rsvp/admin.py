@@ -25,7 +25,7 @@ class TabularPersonAdmin(admin.TabularInline):
 
 
 class InvitationAdmin(admin.ModelAdmin):
-    list_display = ('title', 'zip_code',)
+    list_display = ('title', 'zip_code', 'ceremony', 'shuttle',)
     inlines = (TabularPersonAdmin,)
 
 
